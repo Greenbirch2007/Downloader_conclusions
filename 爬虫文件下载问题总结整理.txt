@@ -1,0 +1,42 @@
+1.下载图片
+2.下载excel
+3.下载pdf文件
+4.下载视频和音频
+
+图片下载的三种方式
+
+1.使用urlopen方式
+import urllib
+
+url = "http://difang.kaiwind.com/zhejiang/jctp/201407/18/W020140718488039321020.jpg"
+
+data = urllib.urlopen(url).read()
+
+f = file('save path',"wb")
+
+f.write(data)
+
+f.close()
+
+
+2.使用urlretrieve
+
+import urllib.request
+
+url = "http://difang.kaiwind.com/zhejiang/jctp/201407/18/W020140718488039321020.jpg"
+
+
+urllib.request.urlretrieve(url,'save path')
+
+3.使用PIL库（重点，使用这种方法的人少，但是通用各种图片，不用担心像素太大之类的问题）
+
+import requests
+from cStringIO import StringIO
+from PIL import Image
+
+url = "http://difang.kaiwind.com/zhejiang/jctp/201407/18/W020140718488039321020.jpg"
+
+
+response = requests.get(url)
+img = Image.open(StringIO(response.content))
+img.save('save path')
